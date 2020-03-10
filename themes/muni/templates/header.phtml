@@ -97,7 +97,12 @@
 	</div> 
 </div>
 		
-<div class="inner-but-full-line"></div>
+<div class="alert alert-danger">
+    <center>
+        <?= $this->transEsc('muni::Covid19') ?>
+    </center>
+</div>
+
 <?php if ($this->layout()->searchbox !== false): ?>
     <div class="search container navbar">
         <nav class="nav searchbox hidden-print">
