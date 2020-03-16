@@ -15,14 +15,7 @@ function eprez_tag(sysno) {
 
     if("show" in data) {
       var a = document.createElement("a");
-      if ("odkaz" in data) {
-        a.href = data.odkaz;
-      } else {
-        a.href = '#';
-        a.onclick = function() {
-          alert(VuFind.translate("muni::eloan_unavailable"));
-        };
-      }
+      a.href = "https://kic.ics.muni.cz/nouzova_epr.cgi?sysno=" + sysno + "&ts=" + time;
       a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
       var h3 = document.createElement("h3");
       h3.appendChild(a);
