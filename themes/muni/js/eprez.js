@@ -15,6 +15,15 @@ function eprez_tag(sysno) {
 
     if("show" in data) {
       var a = document.createElement("a");
+      /* If Korona-E-Prezencka */
+      var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
+      if (terminal_ips.includes(data["ip"])) {
+        a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
+      } else {
+        a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
+      }
+      /* else */
+      /*
       if ("odkaz" in data) {
         a.href = data.odkaz;
       } else {
@@ -23,7 +32,19 @@ function eprez_tag(sysno) {
           alert(VuFind.translate("muni::eloan_unavailable"));
         };
       }
-      a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
+      */
+      /* endIf */
+      /* If Korona-E-Prezencka */
+      if (terminal_ips.includes(data["ip"])) {
+          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan") + ' (přihlášení UČO a sekundární heslo)'));
+          a.style.color = "red";
+          a.style.fontWeight = "900";
+      } else {
+          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
+      }
+      /* else */
+      //a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
+      /* endIf */
       var h3 = document.createElement("h3");
       h3.appendChild(a);
       eprez.appendChild(h3);
