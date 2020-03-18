@@ -17,14 +17,17 @@ function eprez_tag(sysno) {
       var a = document.createElement("a");
       var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
       if (terminal_ips.includes(data["ip"])) {
-        a.href = "https://kic.ics.muni.cz/nouzova_epr.cgi?sysno=" + sysno;
+        a.href = "https://kic.ics.muni.cz/r-prezencka.cgi?sysno=" + sysno;
       } else {
-        a.href = '#';
-        a.onclick = function() {
-          alert(VuFind.translate("muni::eloan_unavailable"));
-        };
+        a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
       }
-      a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
+      if (terminal_ips.includes(data["ip"])) {
+          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan") + ' (přihlášení UČO a sekundární heslo)'));
+          a.style.color = "red";
+          a.style.fontWeight = "900";
+      } else {
+          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
+      }
       var h3 = document.createElement("h3");
       h3.appendChild(a);
       eprez.appendChild(h3);
