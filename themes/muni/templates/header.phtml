@@ -1,3 +1,5 @@
+<?php $client_ip = $_SERVER['REMOTE_ADDR']; ?>
+<?php $terminal_ips = array("147.251.12.92", "147.251.12.93", "147.251.12.94"); ?>
 <?php $account = $this->auth()->getManager(); ?>
 <div class="banner container navbar">
     <div class="navbar-header">
@@ -36,7 +38,7 @@
                             </a>
                         </li>
                     <?php endif; ?>
-    <?php if (is_object($account) && $account->loginEnabled()): // hide login/logout if unavailable    ?>
+    <?php if (is_object($account) && $account->loginEnabled() && !in_array($client_ip, $terminal_ips)): // hide login/logout if unavailable    ?>
                         <li class="logoutOptions<?php if ($account->dropdownEnabled()): ?> with-dropdown<?php endif ?><?php if (!$account->isLoggedIn()): ?> hidden<?php endif ?>">
                             <a href="<?= $this->url('myresearch-home', [], ['query' => ['redirect' => 0]]) ?>"><i id="account-icon" class="fa fa-user-circle" aria-hidden="true"></i> <?= $this->transEsc("Your Account") ?></a>
                         </li>

@@ -1,3 +1,6 @@
+<?php $client_ip = $_SERVER['REMOTE_ADDR']; ?>
+<?php $terminal_ips = array("147.251.12.92", "147.251.12.93", "147.251.12.94"); ?>
+<?php if (!in_array($client_ip, $terminal_ips)): ?>
 <div class="inner-but-full-line"></div>
 <footer class="hidden-print">
     <div class="footer-container">
@@ -65,3 +68,4 @@
         -->
     </div>
 </footer>
+<?php endif; ?>
