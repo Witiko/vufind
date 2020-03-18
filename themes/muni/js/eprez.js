@@ -17,7 +17,7 @@ function eprez_tag(sysno) {
       var a = document.createElement("a");
       var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
       if (terminal_ips.includes(data["ip"])) {
-        a.href = "https://kic.ics.muni.cz/r-prezencka.cgi?sysno=" + sysno;
+        a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
       } else {
         a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
       }
