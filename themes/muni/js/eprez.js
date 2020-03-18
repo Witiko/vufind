@@ -15,7 +15,15 @@ function eprez_tag(sysno) {
 
     if("show" in data) {
       var a = document.createElement("a");
-      a.href = "https://kic.ics.muni.cz/nouzova_epr.cgi?sysno=" + sysno + "&ts=" + time;
+      var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
+      if (terminal_ips.includes(data["ip"])) {
+        a.href = "https://kic.ics.muni.cz/nouzova_epr.cgi?sysno=" + sysno;
+      } else {
+        a.href = '#';
+        a.onclick = function() {
+          alert(VuFind.translate("muni::eloan_unavailable"));
+        };
+      }
       a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
       var h3 = document.createElement("h3");
       h3.appendChild(a);
