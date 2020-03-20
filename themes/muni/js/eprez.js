@@ -5,6 +5,17 @@ function eprez_tag(sysno) {
   var url = "https://kic.ics.muni.cz/eprezencka/alephApi/toAleph.pl?sysno=" + sysno + "&jsoncallback=eprez_tag_callback&_=" + time;
   var xhttp = new XMLHttpRequest();
 
+  function in_array(element, array) {
+    var in_array = false;
+    for (var i = 0; i < array.length; i++) {
+      if (array[i] === element) {
+        in_array = true;
+        break;
+      }
+    }
+    return in_array;
+  }
+
   function eprez_tag_callback() {
     data = {};
     for (var i = 0; i < arguments.length; ++i) {
@@ -17,7 +28,7 @@ function eprez_tag(sysno) {
       var a = document.createElement("a");
       /* If Korona-E-Prezencka */
       var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
-      if (terminal_ips.includes(data["ip"])) {
+      if (in_array(data["ip"], terminal_ips)) {
         a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
       } else {
         a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
@@ -35,7 +46,7 @@ function eprez_tag(sysno) {
       */
       /* endIf */
       /* If Korona-E-Prezencka */
-      if (terminal_ips.includes(data["ip"])) {
+      if (in_array(data["ip"], terminal_ips)) {
           a.appendChild(document.createTextNode(VuFind.translate("muni::eloan") + ' (přihlášení UČO a sekundární heslo)'));
           a.style.color = "red";
           a.style.fontWeight = "900";
