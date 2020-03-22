@@ -27,14 +27,18 @@
   </div>
 <?php endif; ?>
 
+<?php $client_ip = $_SERVER['REMOTE_ADDR']; ?>
+<?php $terminal_ips = array("147.251.12.92", "147.251.12.93", "147.251.12.94"); ?>
 <?=($offlineMode == "ils-offline") ? $this->render('Helpers/ils-offline.phtml', ['offlineModeMsg' => 'ils_offline_holdings_message']) : ''?>
 <?php if (($this->ils()->getHoldsMode() == 'driver' && !empty($holdings['holdings'])) || $this->ils()->getTitleHoldsMode() == 'driver'): ?>
   <?php if ($account->loginEnabled() && $offlineMode != 'ils-offline'): ?>
     <?php if (!$user): ?>
+      <?php if (!in_array($client_ip, $terminal_ips)): ?>
       <div class="alert alert-info">
 				<?=$this->transEsc("muni::ils_login_pretext")?>
         <a href="<?=$this->url('myresearch-userlogin')?>"><?=$this->transEsc("muni::ils_login_link")?></a>.
       </div>
+      <?php endif; ?>
     <?php elseif (!$user->cat_username): ?>
       <div class="alert alert-info">
         <?=$this->translate("hold_profile_html", ['%%url%%' => $this->recordLink()->getTabUrl($this->driver, 'Holdings') . '?catalogLogin=true'])?>
