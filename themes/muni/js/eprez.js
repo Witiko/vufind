@@ -33,7 +33,7 @@ function eprez_tag(sysno) {
         a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
       }
       if (in_array(data["ip"], terminal_ips)) {
-          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan") + ' (přihlášení UČO a sekundární heslo)'));
+          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan_terminal")));
           a.style.color = "red";
           a.style.fontWeight = "900";
       } else {
