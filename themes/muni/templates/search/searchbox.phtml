@@ -12,6 +12,7 @@
     );
     $handlerCount = count($handlers);
     $basicSearch = $this->searchbox()->combinedHandlersActive() ? 'combined-searchbox' : $options->getSearchAction();
+    $search = $options->getSearchAction();
     $searchHome = $options->getSearchHomeAction();
     $advSearch = $options->getAdvancedSearchAction();
     $lastSort = $this->searchMemory()->getLastSort($this->searchClassId);
@@ -67,6 +68,11 @@
     <?php if ($advSearch): ?>
         <li id="muni-homepage-advsearch-bottom">
             <a href="<?=$this->url($advSearch) . ((isset($this->searchId) && $this->searchId) ? '?edit=' . $this->escapeHtmlAttr($this->searchId) : $hiddenFilterParams) ?>" class="btn btn-link" rel="nofollow"><?=$this->transEsc("Advanced")?></a>
+        </li>
+    <?php endif; ?>
+    <?php if ($advSearch && !isset($this->searchId)): ?>
+        <li id="muni-homepage-eloan-bottom">
+            <a href="<?=$this->url($search) ?>?type=AllFields&filter[]=genre_facet%3A%22e-prezenčka%22" class="btn btn-link" rel="nofollow"><?=$this->transEsc("muni::eloan")?></a>
         </li>
     <?php endif; ?>
         <li>

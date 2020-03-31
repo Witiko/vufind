@@ -307,8 +307,13 @@ div.search {
     display: none;
 }
 
-#muni-homepage-advsearch-bottom a {
+#muni-homepage-advsearch-bottom a, #muni-homepage-eloan-bottom a {
+    padding-left: 0;
     text-decoration: underline;
+}
+
+#muni-homepage-eloan-bottom a {
+    padding-top: 0;
 }
 
 div.search-controls {
