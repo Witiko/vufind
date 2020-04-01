@@ -26,19 +26,10 @@ function eprez_tag(sysno) {
 
     if("show" in data) {
       var a = document.createElement("a");
-      var terminal_ips = ["147.251.12.92", "147.251.12.93", "147.251.12.94"];
-      if (in_array(data["ip"], terminal_ips)) {
-        a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
-      } else {
-        a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
-      }
-      if (in_array(data["ip"], terminal_ips)) {
-          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan_terminal")));
-          a.style.color = "red";
-          a.style.fontWeight = "900";
-      } else {
-          a.appendChild(document.createTextNode(VuFind.translate("muni::eloan")));
-      }
+      a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
+      a.appendChild(document.createTextNode(VuFind.translate("muni::eloan_terminal")));
+      a.style.color = "red";
+      a.style.fontWeight = "900";
       var h3 = document.createElement("h3");
       h3.appendChild(a);
       eprez.appendChild(h3);
