@@ -72,7 +72,7 @@
     <?php endif; ?>
     <?php if ($advSearch && !isset($this->searchId)): ?>
         <li id="muni-homepage-eloan-bottom">
-            <a href="<?=$this->url($search) ?>?type=AllFields&filter[]=genre_facet%3A%22e-prezenčka%22" class="btn btn-link" rel="nofollow"><?=$this->transEsc("muni::eloan")?></a>
+            <a href="<?=$this->url($search) ?>?type=AllFields&filter[]=genre_facet%3A%22e-prezenčka%22" class="btn btn-link" rel="nofollow"><?=$this->transEsc("muni::eloan")?></a> (<?=$this->transEsc("muni::eloan_info")?>)
         </li>
     <?php endif; ?>
         <li>
