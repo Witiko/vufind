@@ -515,3 +515,11 @@ tr.marc-row-CAT {
 div.item-internet-links {
     margin-bottom: 2rem;
 }
+
+#item-filters {
+    padding-bottom: 60px;
+}
+
+.hidden {
+    display: none;
+}
