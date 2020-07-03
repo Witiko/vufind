@@ -28,7 +28,7 @@
 <?php endif; ?>
 
 <?php $client_ip = $_SERVER['REMOTE_ADDR']; ?>
-<?php $terminal_ips = array("147.251.12.92", "147.251.12.93", "147.251.12.94"); ?>
+<?php $terminal_ips = explode(PHP_EOL, file_get_contents('terminal-ips.txt')); ?>
 <?=($offlineMode == "ils-offline") ? $this->render('Helpers/ils-offline.phtml', ['offlineModeMsg' => 'ils_offline_holdings_message']) : ''?>
 <?php if (($this->ils()->getHoldsMode() == 'driver' && !empty($holdings['holdings'])) || $this->ils()->getTitleHoldsMode() == 'driver'): ?>
   <?php if ($account->loginEnabled() && $offlineMode != 'ils-offline'): ?>
