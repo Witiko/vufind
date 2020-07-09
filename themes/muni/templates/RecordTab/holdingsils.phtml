@@ -33,7 +33,7 @@
 <?php if (($this->ils()->getHoldsMode() == 'driver' && !empty($holdings['holdings'])) || $this->ils()->getTitleHoldsMode() == 'driver'): ?>
   <?php if ($account->loginEnabled() && $offlineMode != 'ils-offline'): ?>
     <?php if (!$user): ?>
-      <?php if (!in_array($client_ip, $terminal_ips) && strncmp($this->driver->getUniqueID(), "MUB01", 5) === 0): ?>
+      <?php if (!in_array($client_ip, $terminal_ips)): ?>
       <div class="alert alert-info">
 				<?=$this->transEsc("muni::ils_login_pretext")?>
         <a href="<?=$this->url('myresearch-userlogin')?>"><?=$this->transEsc("muni::ils_login_link")?></a>.
