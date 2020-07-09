@@ -6,7 +6,7 @@ function eprez_tag(sysno) {
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       var terminal_ips = this.responseText.split('\n').slice(0, -1);
-      console.log(terminal_ips);
+      // console.log(terminal_ips);
       query_aleph(terminal_ips);
     }
   };
