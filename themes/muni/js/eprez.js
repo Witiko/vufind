@@ -1,9 +1,10 @@
 function eprez_tag(sysno) {
-  sysno = sysno.replace(/^MUB0[1-3]/, "");
 
   if (sysno.substring(0, 5) != 'MUB01') {
     return;
   }
+
+  sysno = sysno.replace(/^MUB0[1-3]/, "");
 
   var url = "https://katalog.muni.cz/terminal-ips.txt";
   var xhttp = new XMLHttpRequest();
