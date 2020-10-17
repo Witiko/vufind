@@ -1,11 +1,10 @@
 <?php
 /**
- * Model for MARC records in Solr.
+ * Content loader plugin manager
  *
  * PHP version 7
  *
  * Copyright (C) Villanova University 2010.
- * Copyright (C) The National Library of Finland 2015.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -21,27 +20,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  * @category VuFind
- * @package  RecordDrivers
+ * @package  Content
  * @author   Demian Katz <demian.katz@villanova.edu>
- * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     https://vufind.org/wiki/development:plugins:record_drivers Wiki
+ * @link     https://vufind.org/wiki/development:plugins:hierarchy_components Wiki
  */
-namespace Muni\RecordDriver;
+namespace Muni\Content;
 
 /**
- * Model for MARC records in Solr.
+ * Content loader plugin manager
  *
  * @category VuFind
- * @package  RecordDrivers
+ * @package  Content
  * @author   Demian Katz <demian.katz@villanova.edu>
- * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     https://vufind.org/wiki/development:plugins:record_drivers Wiki
+ * @link     https://vufind.org/wiki/development:plugins:hierarchy_components Wiki
  */
-class SolrMarc extends SolrDefault
+class PluginManager extends \VuFind\ServiceManager\AbstractPluginManager
 {
-    use \VuFind\RecordDriver\IlsAwareTrait;
-    use MarcReaderTrait;
-    use MarcAdvancedTrait;
+    /**
+     * Default plugin factories.
+     *
+     * @var array
+     */
+    protected $factories = [];
+
+    /**
+     * Return the name of the base class or interface that plug-ins must conform
+     * to.
+     *
+     * @return string
+     */
+    protected function getExpectedInterface()
+    {
+        return 'Muni\Content\Loader';
+    }
 }
