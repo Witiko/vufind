@@ -43,15 +43,23 @@ function eprez_tag(sysno) {
         }
       }
 
+      test_ips = ['147.251.56.248',
+                  '147.251.2.60',
+                  '147.251.2.97',
+                  '147.251.56.209',
+                  '147.251.68.59',
+                  '147.251.17.76',
+                  '188.95.60.153'];
+
       if("show" in data) {
         var a = document.createElement("a");
-        if (in_array(data["ip"], terminal_ips)) {
-          //a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
-          a.href = "https://kic.ics.muni.cz/eprezencka/pdf/" + sysno + ".pdf";
+        if (in_array(data["ip"], terminal_ips) || in_array(data["ip"], test_ips)) {
+          a.href = "https://kic.ics.muni.cz/e-prezencka.cgi?sysno=" + sysno;
+          //a.href = "https://kic.ics.muni.cz/eprezencka/pdf/" + sysno + ".pdf";
         //} else {
         //  a.href = "https://it.muni.cz/knihovny-samostudium/e-prezencka";
         }
-        if (in_array(data["ip"], terminal_ips)) {
+        if (in_array(data["ip"], terminal_ips) || in_array(data["ip"], test_ips)) {
             a.appendChild(document.createTextNode(VuFind.translate("muni::eloan_terminal")));
             a.style.color = "red";
             a.style.fontWeight = "900";
