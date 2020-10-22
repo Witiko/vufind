@@ -967,4 +967,30 @@ trait MarcAdvancedTrait
         }
         return $sources;
     }
+
+    /**
+     * Return whether this record is an e-loan.
+     *
+     * @return bool
+     */
+    public function isELoan()
+    {
+        $fields = $this->getMarcRecord()->getFields('655');
+        if (is_array($fields)) {
+            foreach ($fields as $currentField) {
+                $allSubfields = $currentField->getSubfields();
+                if (!empty($allSubfields)) {
+                    foreach ($allSubfields as $currentSubfield) {
+                        if (in_array($currentSubfield->getCode(), ['a'])) {
+                            $data = trim($currentSubfield->getData());
+                            if (!strcmp($data, "e-prezenčka")) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

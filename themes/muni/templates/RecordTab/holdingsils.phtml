@@ -62,9 +62,11 @@
       </div>
   <?php endif; ?>
 
-<?php $this->headScript()->appendFile("eprez.js"); ?>
-<div id="eprez"></div>
-<script>eprez_tag("<?=$this->driver->getUniqueID()?>");</script>
+<?php if ($this->driver->isELoan()): ?>
+  <?php $this->headScript()->appendFile("eprez.js"); ?>
+  <div id="eprez"></div>
+  <script>eprez_tag("<?=$this->driver->getUniqueID()?>");</script>
+<?php endif; ?>
 
 <div id="item-filters" class="hidden"></div>
 
