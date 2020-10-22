@@ -65,7 +65,7 @@
 <?php if ($this->driver->isELoan()): ?>
   <?php $this->headScript()->appendFile("eprez.js"); ?>
   <div id="eprez"></div>
-  <script>eprez_tag("<?=$this->driver->getUniqueID()?>");</script>
+  <script>eprez_tag("<?=$this->driver->getUniqueID()?>", "<?=$_SERVER['REMOTE_ADDR']?>");</script>
 <?php endif; ?>
 
 <div id="item-filters" class="hidden"></div>
