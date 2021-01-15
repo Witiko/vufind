@@ -1739,4 +1739,15 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
         return isset($this->fields['long_lat_label'])
             ? $this->fields['long_lat_label'] : [];
     }
+
+    /**
+     * Return whether this record is an e-loan.
+     *
+     * @return bool
+     */
+    public function isELoan()
+    {
+        // Unsupported by default
+        return false;
+    }
 }
