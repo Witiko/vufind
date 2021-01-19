@@ -1029,20 +1029,10 @@ trait MarcAdvancedTrait
      */
     public function isELoan()
     {
-        $fields = $this->getMarcRecord()->getFields('655');
-        if (is_array($fields)) {
-            foreach ($fields as $currentField) {
-                $allSubfields = $currentField->getSubfields();
-                if (!empty($allSubfields)) {
-                    foreach ($allSubfields as $currentSubfield) {
-                        if (in_array($currentSubfield->getCode(), ['a'])) {
-                            $data = trim($currentSubfield->getData());
-                            if (!strcmp($data, "e-prezenčka")) {
-                                return true;
-                            }
-                        }
-                    }
-                }
+        $fields = $this->getFieldArray('655', ['a'], false);
+        foreach ($fields as $data) {
+            if (!strcmp($data, "e-prezenčka")) {
+                return true;
             }
         }
         return false;
