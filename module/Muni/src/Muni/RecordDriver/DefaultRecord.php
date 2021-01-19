@@ -300,6 +300,36 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
     }
 
     /**
+     * Get the first listed NBN (or false if no NBNs).
+     *
+     * @return mixed
+     */
+    public function getCleanNBN()
+    {
+        $nbns = $this->getNBNs();
+        if (empty($nbns)) {
+            return false;
+        }
+        $nbn = $nbns[0];
+        return $nbn;
+    }
+
+    /**
+     * Get just the base portion of the first listed ISMN (or false if no ISMNs).
+     *
+     * @return mixed
+     */
+    public function getCleanISMN()
+    {
+        $ismns = $this->getISMNs();
+        if (empty($ismns)) {
+            return false;
+        }
+        $ismn = $ismns[0];
+        return $ismn;
+    }
+
+    /**
      * Get just the first listed OCLC Number (or false if none available).
      *
      * @return mixed
@@ -307,6 +337,17 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
     public function getCleanOCLCNum()
     {
         $nums = $this->getOCLC();
+        return empty($nums) ? false : $nums[0];
+    }
+
+    /**
+     * Get just the first listed EAN (or false if none available).
+     *
+     * @return mixed
+     */
+    public function getCleanEAN()
+    {
+        $nums = $this->getEANs();
         return empty($nums) ? false : $nums[0];
     }
 
@@ -572,6 +613,61 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
         // it's not set at all, we should normalize the value to an empty array.
         return isset($this->fields['issn']) && is_array($this->fields['issn']) ?
             $this->fields['issn'] : [];
+    }
+
+    /**
+     * Get the national bibliography number (NBN).
+     *
+     * @return string
+     */
+    public function getNBNs()
+    {
+        // Not supported by the default index schema -- implement in child classes.
+        return [];
+    }
+
+    /**
+     * Get an array of all ISMNs associated with the record (may be empty).
+     *
+     * @return array
+     */
+    public function getISMNs()
+    {
+        // Not supported by the default index schema -- implement in child classes.
+        return [];
+    }
+
+    /**
+     * Get an array of all EANs associated with the record (may be empty).
+     *
+     * @return array
+     */
+    public function getEANs()
+    {
+        // Not supported by the default index schema -- implement in child classes.
+        return [];
+    }
+
+    /**
+     * Get an array of all encodings associated with the record (may be empty).
+     *
+     * @return array
+     */
+    public function getEncodings()
+    {
+        // Not supported by the default index schema -- implement in child classes.
+        return [];
+    }
+
+    /**
+     * Get an array of all article sources associated with the record (may be empty).
+     *
+     * @return array
+     */
+    public function getSources()
+    {
+        // Not supported by the default index schema -- implement in child classes.
+        return [];
     }
 
     /**
@@ -1229,10 +1325,19 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
         if ($upc = $this->getCleanUPC()) {
             $arr['upc'] = $upc;
         }
+        if ($nbn = $this->getCleanNBN()) {
+            $arr['nbn'] = $nbn;
+        }
+        if ($ismn = $this->getCleanISMN()) {
+            $arr['ismn'] = $ismn;
+        }
+        if ($ean = $this->getCleanEAN()) {
+            $arr['ean'] = $ean;
+        }
         // If an ILS driver has injected extra details, check for IDs in there
         // to fill gaps:
         if ($ilsDetails = $this->getExtraDetail('ils_details')) {
-            foreach (['isbn', 'issn', 'oclc', 'upc'] as $key) {
+            foreach (['isbn', 'issn', 'oclc', 'upc', 'nbn', 'ismn', 'ean'] as $key) {
                 if (!isset($arr[$key]) && isset($ilsDetails[$key])) {
                     $arr[$key] = $ilsDetails[$key];
                 }
@@ -1258,7 +1363,7 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
 
         $identifiers = [];
         if ($isbn = $this->getCleanISBN()) {
-            $identifiers['isbn'] = $isbn;
+            $identifiers['isbn'] = (new ISBN($isbn))->get13();
         }
         elseif ($issn = $this->getCleanISSN()) {
             $identifiers['isbn'] = $issn;
@@ -1266,6 +1371,15 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
 
         if ($oclc = $this->getCleanOCLCNum()) {
             $identifiers['oclc'] = $oclc;
+        }
+        if ($nbn = $this->getCleanNBN()) {
+            $identifiers['nbn'] = $nbn;
+        }
+        if ($ismn = $this->getCleanISMN()) {
+            $identifiers['ismn'] = $ismn;
+        }
+        if ($ean = $this->getCleanEAN()) {
+            $identifiers['ean'] = $ean;
         }
 
         if (empty($identifiers)) {
@@ -1738,5 +1852,16 @@ class DefaultRecord extends \VuFind\RecordDriver\AbstractBase
     {
         return isset($this->fields['long_lat_label'])
             ? $this->fields['long_lat_label'] : [];
+    }
+
+    /**
+     * Return whether this record is an e-loan.
+     *
+     * @return bool
+     */
+    public function isELoan()
+    {
+        // Unsupported by default
+        return false;
     }
 }

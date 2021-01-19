@@ -50,10 +50,13 @@ class ObalkyKnihV3 extends \Muni\Content\AbstractCover
         $this->supportsIsbn = true;
         $this->supportsIssn = true;
         $this->supportsOclc = true;
+        $this->supportsNbn = true;
+        $this->supportsIsmn = true;
+        $this->supportsEan = true;
         $this->cacheAllowed = true;
-
-        $this->timeout = 60;
     }
+
+    private $timeout = 60;
 
     /**
      * Get an HTTP client
@@ -113,6 +116,15 @@ class ObalkyKnihV3 extends \Muni\Content\AbstractCover
 
         if (isset($ids['oclc'])) {
             $identifiers['oclc'] = '(OCoLC)' . $ids['oclc'];
+        }
+        if (isset($ids['nbn'])) {
+            $identifiers['nbn'] = $ids['nbn'];
+        }
+        if (isset($ids['ismn'])) {
+            $identifiers['ismn'] = $ids['ismn'];
+        }
+        if (isset($ids['ean'])) {
+            $identifiers['ean'] = $ids['ean'];
         }
 
         if (empty($identifiers)) {
